@@ -3,6 +3,7 @@
 #include "ApplicationConfiguration.h"
 #include "ApplicationSettingsWindow.h"
 #include "ApplicationCommands.h"
+#include "DisplayComponent.h"
 
 class OwlControlApplication  : public JUCEApplication {
 public:
@@ -15,6 +16,7 @@ public:
     bool moreThanOneInstanceAllowed()       { return false; }
     AudioDeviceManager dm;
     OwlControlSettings settings;
+    DrawableComposite displayDrawable;
     ScopedPointer<OwlControlGui> gui;
    
     Value updateGui; // flag used to update Gui when Owl settings are loaded
@@ -122,6 +124,7 @@ public:
 	setContentOwned(tabs, false);
 	tabs->addTab("Main", Colours::lightgrey, gui, false, 1);
 	tabs->addTab("Application Settings", Colours::lightgrey, new ApplicationSettingsWindow(dm), true, 2);
+    tabs->addTab("Display", Colours::lightgrey, new DisplayComponent(), true, 3);
     PropertySet* props = ApplicationConfiguration::getApplicationProperties();
 	tabs->setSize(779, 700);
 	centreWithSize (779, 700);
