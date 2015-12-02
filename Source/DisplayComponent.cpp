@@ -21,12 +21,12 @@ DisplayComponent::DisplayComponent(){
     setSize (LCDWIDTH, LCDHEIGHT);
     oled = new MicroOLED(LCDWIDTH, LCDHEIGHT);
     oled->begin();
-    
-    setParameterValue(0, 0.1);
-    setParameterValue(1, 0.9);
-    setParameterValue(2, 0.3);
-    setParameterValue(3, 0.4);
-    setParameterValue(4, 0.6);
+    oled->setColor(BLACK);
+    oled->rectFill(0, 0, LCDWIDTH, LCDHEIGHT);
+    oled->setColor(WHITE);
+  //  setParameterValue(0, 0.2);
+  //  setParameterValue(1, 0.6);
+  //  setParameterValue(2, 0.9);    
 }
 
 DisplayComponent::~DisplayComponent(){
@@ -35,20 +35,41 @@ DisplayComponent::~DisplayComponent(){
 
 void DisplayComponent::setParameterValue(int pid, float value){
     int x = 15;
-    int y = 64-10;
+    int y = 64-8;
     x += pid * 20;
-    while(value > 1.0/6){
-        oled->rectFill(x, y, 18, 5);         
-        value -= 1.0/6;
-        y -= 9;
+    static const int bars = 6;
+    static const int width = 18;
+    static const int height = 4;
+    static const int gap = 1;
+    static const int vdistance = height+gap;
+    static const float step = 1.0/bars;
+    oled->rectFill(x, y-bars*vdistance, width, 9*vdistance, BLACK, NORM);
+    while(value > step){
+        oled->rectFill(x, y, width, height);         
+        value -= step;
+        y -= vdistance;
     }
-    int fraction = value*6*5;
+    int fraction = value*vdistance;
     if(fraction > 0){
-        oled->rectFill(x, y+5-fraction, 18, fraction);
+        oled->rectFill(x, y-fraction, width, fraction, WHITE, NORM);
     }
+    repaint(); // mark for redraw.
+}
+void DisplayComponent::stringWrite(int line, int pos, String str1){
+    static const int maxchars = 16;
+    static const int width = 7;
+    int x = 2 + pos*width;
+    int y = 2;
+    if(line == 1)
+        y += 10;
+    oled->rectFill(x, y, (maxchars-pos)*width, 10, BLACK, NORM);
+    int end = std::min(maxchars-pos, str1.length());
+    for(int i=0; i < end; i++){
+        oled->drawChar(x, y, str1[i], WHITE, NORM);
+        x += width;
+    }   
+    repaint(); // mark for redraw.
     
- //   oled->
-  //  oled->circle(80,34,24, 0xff0000ff, XOR);
 }
 
 void DisplayComponent::paint (Graphics& g)

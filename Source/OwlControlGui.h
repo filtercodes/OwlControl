@@ -23,6 +23,7 @@
 //[Headers]     -- You can add your own extra header files here --
 #include "JuceHeader.h"
 #include "OwlControlSettings.h"
+#include "DisplayComponent.h"
 
 //[/Headers]
 
@@ -87,6 +88,7 @@ private:
     ScopedPointer<AudioDeviceSelectorComponent> audioSelector;
     uint32 timerInterval;
     bool doPollDevice = true;
+    DisplayComponent display;
     //[/UserVariables]
 
     //==============================================================================

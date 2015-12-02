@@ -10,8 +10,6 @@
 #define OwlControl_DisplayComponent_h
 
 #include "JuceHeader.h"
-//#include "juce_component.h"
-//#include "juce_PixelFormats.h"
 #include "SparkFunMicroOLED.h"
 
 /* #include "juce_Drawable.h"
@@ -42,11 +40,11 @@ public:
     void setPixel(Graphics& g, int x, int y );
     void drawx4Pixel(Graphics& g, int x, int y);
     void drawPixel(Graphics& g, int x, int y, int colour, int mode);
+    void stringWrite(int line, int pos, String str1);
     
 private:
     ScopedPointer<Label>DisplayLabel;
     ScopedPointer<MicroOLED> oled;
-//    MicroOLED* oled;
 };
 
 #endif

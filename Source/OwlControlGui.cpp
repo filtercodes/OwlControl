@@ -450,10 +450,12 @@ OwlControlGui::OwlControlGui (OwlControlSettings& settings, AudioDeviceManager& 
         sensitivityComboBox->setItemEnabled(CUSTOM, 0);
     }
     updateGui.addListener(this);
+    addAndMakeVisible(&display);
     setVisible(true); // set the window visible
     setStatus("ready");
     timerInterval = 1000;
     startTimer(timerInterval);
+    display.stringWrite(0, 0, "012345678901234567890");
     //[/Constructor]
 }
 
@@ -535,6 +537,7 @@ void OwlControlGui::paint (Graphics& g)
                        false);
 
     //[UserPaint] Add your own custom painting code here..
+//display.paintEntireComponent(g, true);
     //[/UserPaint]
 }
 
@@ -889,30 +892,35 @@ void OwlControlGui::sliderValueChanged (Slider* sliderThatWasMoved)
     {
         //[UserSliderCode_slider4] -- add your slider handling code here..
         theSettings.setCc(PATCH_PARAMETER_D, sliderThatWasMoved->getValue()*127);
+        display.setParameterValue(3, sliderThatWasMoved->getValue());
         //[/UserSliderCode_slider4]
     }
     else if (sliderThatWasMoved == slider3)
     {
         //[UserSliderCode_slider3] -- add your slider handling code here..
         theSettings.setCc(PATCH_PARAMETER_C, sliderThatWasMoved->getValue()*127);
+        display.setParameterValue(2, sliderThatWasMoved->getValue());
         //[/UserSliderCode_slider3]
     }
     else if (sliderThatWasMoved == slider1)
     {
         //[UserSliderCode_slider1] -- add your slider handling code here..
         theSettings.setCc(PATCH_PARAMETER_A, sliderThatWasMoved->getValue()*127);
+        display.setParameterValue(0, sliderThatWasMoved->getValue());
         //[/UserSliderCode_slider1]
     }
     else if (sliderThatWasMoved == slider2)
     {
         //[UserSliderCode_slider2] -- add your slider handling code here..
         theSettings.setCc(PATCH_PARAMETER_B, sliderThatWasMoved->getValue()*127);
+        display.setParameterValue(1, sliderThatWasMoved->getValue());
         //[/UserSliderCode_slider2]
     }
     else if (sliderThatWasMoved == slider5)
     {
         //[UserSliderCode_slider5] -- add your slider handling code here..
         theSettings.setCc(PATCH_PARAMETER_E, sliderThatWasMoved->getValue()*127);
+        display.setParameterValue(4, sliderThatWasMoved->getValue());
         //[/UserSliderCode_slider5]
     }
 
@@ -929,9 +937,12 @@ void OwlControlGui::valueChanged(juce::Value &value){
 
 void OwlControlGui::setStatus(const juce::String& msg){
   statusLabel->setText(msg, dontSendNotification);
+  display.stringWrite(1, 0, msg);
+//  display.stringWrite("   hello   ", "    world    ");
 }
 
 void OwlControlGui::settingsChanged() {
+    
     StringArray& presets = theSettings.getPresetNames();
     if(presets.size() != 0){
       patchSlotAComboBox->clear(dontSendNotification);
@@ -940,6 +951,7 @@ void OwlControlGui::settingsChanged() {
       // patchSlotBComboBox->addItemList(presets, 1);
       setStatus("Settings loaded");
     }
+    display.stringWrite(0, 0, patchSlotAComboBox->getText());
 
     // Parameter names
     StringArray& parameters = theSettings.getParameterNames();
