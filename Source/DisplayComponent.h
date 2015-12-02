@@ -35,7 +35,7 @@ public:
     
     
     // Text functions //
-    
+    void setParameterValue(int pid, float value);
     void setText (const String& newText);
     void setColour (Colour newColour);
  //   void setFont (const Font& newFont, bool applySizeAndScale);
@@ -46,6 +46,7 @@ public:
 private:
     ScopedPointer<Label>DisplayLabel;
     ScopedPointer<MicroOLED> oled;
+//    MicroOLED* oled;
 };
 
 #endif

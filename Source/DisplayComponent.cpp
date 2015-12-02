@@ -21,14 +21,34 @@ DisplayComponent::DisplayComponent(){
     setSize (LCDWIDTH, LCDHEIGHT);
     oled = new MicroOLED(LCDWIDTH, LCDHEIGHT);
     oled->begin();
-    oled->rectFill(10, 10, 110, 50, WHITE, 0);
-    oled->setColor(BLACK);
-    oled->circle(30, 30, 10);
-    oled->drawChar(40, 40, 'h');
+    
+    setParameterValue(0, 0.1);
+    setParameterValue(1, 0.9);
+    setParameterValue(2, 0.3);
+    setParameterValue(3, 0.4);
+    setParameterValue(4, 0.6);
 }
 
 DisplayComponent::~DisplayComponent(){
     DisplayLabel = nullptr;
+}
+
+void DisplayComponent::setParameterValue(int pid, float value){
+    int x = 15;
+    int y = 64-10;
+    x += pid * 20;
+    while(value > 1.0/6){
+        oled->rectFill(x, y, 18, 5);         
+        value -= 1.0/6;
+        y -= 9;
+    }
+    int fraction = value*6*5;
+    if(fraction > 0){
+        oled->rectFill(x, y+5-fraction, 18, fraction);
+    }
+    
+ //   oled->
+  //  oled->circle(80,34,24, 0xff0000ff, XOR);
 }
 
 void DisplayComponent::paint (Graphics& g)
@@ -37,17 +57,17 @@ void DisplayComponent::paint (Graphics& g)
     //[/UserPrePaint]
 
   g.drawImageAt(oled->getImage(), 0, 0);
-    // g.fillAll (Colour (0xff000000));
-    // g.setColour (Colour (0xff6f6f6f));
+   //  g.fillAll (Colour (0xff000000));
+   //  g.setColour (Colour (0xff6f6f6f));
     
-    // g.setPixel	(64, 128);
+   //  g.setPixel	(64, 128);
 
     // oled->setGraphicsContext(&g);
     
-//    g.setColour (Colours::white);
- //   g.fillPath ();
-//    g.setColour (Colour (0xff6f6f6f));
-//    g.strokePath (25, float (5.200f));
+   // g.setColour (Colours::white);
+  //  g.fillPath ();
+ //   g.setColour (Colour (0xff6f6f6f));
+  //  g.strokePath (25, float (5.200f));
     
     //[UserPaint] Add your own custom painting code here..
     //[/UserPaint]
