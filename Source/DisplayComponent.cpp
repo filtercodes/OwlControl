@@ -18,9 +18,13 @@ DisplayComponent::DisplayComponent(){
     DisplayLabel->setColour (TextEditor::textColourId, Colours::black);
     DisplayLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
     
-    setSize (64, 48);
-    oled = new MicroOLED(64, 48);
-    // oled->setGraphicsContext(&g);
+    setSize (LCDWIDTH, LCDHEIGHT);
+    oled = new MicroOLED(LCDWIDTH, LCDHEIGHT);
+    oled->begin();
+    oled->rectFill(10, 10, 110, 50, WHITE, 0);
+    oled->setColor(BLACK);
+    oled->circle(30, 30, 10);
+    oled->drawChar(40, 40, 'h');
 }
 
 DisplayComponent::~DisplayComponent(){

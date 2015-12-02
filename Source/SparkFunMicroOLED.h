@@ -185,7 +185,7 @@ class MicroOLED //: public Print
 	void flipVertical(bool flip);
 	void flipHorizontal(bool flip);
 
-	Image& getImage(){ return image; }
+	const Image& getImage(){ return image; }
 private:
 	Image image;
 	uint8_t csPin, dcPin, rstPin;

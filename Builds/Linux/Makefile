@@ -51,6 +51,8 @@ endif
 OBJECTS := \
   $(OBJDIR)/sysex_4a684601.o \
   $(OBJDIR)/FirmwareChecksumComponent_f3943560.o \
+  $(OBJDIR)/SparkFunMicroOLED_f3943560.o \
+  $(OBJDIR)/DisplayComponent_f3943560.o \
   $(OBJDIR)/ApplicationSettingsWindow_2723744.o \
   $(OBJDIR)/OwlControlGui_c26ebfa3.o \
   $(OBJDIR)/ApplicationConfiguration_4b5ea10f.o \
@@ -90,6 +92,16 @@ $(OBJDIR)/sysex_4a684601.o: ../../Source/sysex.c
 	-@mkdir -p $(OBJDIR)
 	@echo "Compiling sysex.c"
 	@$(CC) $(CFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/SparkFunMicroOLED_f3943560.o: ../../Source/SparkFunMicroOLED.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling SparkFunMicroOLED.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
+
+$(OBJDIR)/DisplayComponent_f3943560.o: ../../Source/DisplayComponent.cpp
+	-@mkdir -p $(OBJDIR)
+	@echo "Compiling DisplayComponent.cpp"
+	@$(CXX) $(CXXFLAGS) -o "$@" -c "$<"
 
 $(OBJDIR)/FirmwareChecksumComponent_f3943560.o: ../../Source/FirmwareChecksumComponent.cpp
 	-@mkdir -p $(OBJDIR)
