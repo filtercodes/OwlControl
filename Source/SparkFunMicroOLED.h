@@ -22,7 +22,7 @@
 #include "JuceHeader.h"
 
 //#include "DisplayComponent.h"
-class DisplayComponent;
+//class DisplayComponent;
 
 //#include "application.h"
 
@@ -123,11 +123,8 @@ class MicroOLED //: public Print
 {
     public:
  
-    MicroOLED(DisplayComponent* p):cmp(p){}
-    void setGraphicsContext(Graphics* ctx){
-        g = ctx;
-    }
-	MicroOLED(micro_oled_mode mode = MODE_DEFAULT);//, uint8_t rst = RST_DEFAULT, uint8_t dc = DC_DEFAULT, uint8_t cs = CS_DEFAULT);
+  MicroOLED(int x, int y);
+    //    MicroOLED(micro_oled_mode mode = MODE_DEFAULT);//, uint8_t rst = RST_DEFAULT, uint8_t dc = DC_DEFAULT, uint8_t cs = CS_DEFAULT);
     
 	void begin(void);
 	virtual size_t write(uint8_t);
@@ -187,11 +184,10 @@ class MicroOLED //: public Print
 	void scrollStop(void);
 	void flipVertical(bool flip);
 	void flipHorizontal(bool flip);
-    
-private:
-    DisplayComponent* cmp;
-    Graphics* g;
 
+	Image& getImage(){ return image; }
+private:
+	Image image;
 	uint8_t csPin, dcPin, rstPin;
 	uint8_t wrPin, rdPin, dPins[8];
 	volatile uint8_t *wrport, *wrreg, *rdport, *rdreg;

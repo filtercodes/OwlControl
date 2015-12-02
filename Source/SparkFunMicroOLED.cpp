@@ -17,7 +17,6 @@
 #include "SparkFunMicroOLED.h"
 #include "SparkFunMicroOLEDFonts.h"
 #include "math.h"
-#include "DisplayComponent.h"
 
 
 // Change the total fonts included
@@ -97,7 +96,9 @@ static uint8_t screenmemory [] = {
 	0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};   
+};
+
+MicroOLED::MicroOLED(int x, int y) : image(Image::RGB, x, y, true){}
 /*
 MicroOLED::MicroOLED(micro_oled_mode mode, uint8_t rst, uint8_t dc, uint8_t cs)
 {
@@ -363,7 +364,8 @@ void MicroOLED::pixel(uint8_t x, uint8_t y) {
  //Draw color pixel in the screen buffer's x,y position with NORM or XOR draw mode.
  
 void MicroOLED::pixel(uint8_t x, uint8_t y, uint8_t color, uint8_t mode) {
-  cmp->drawPixel(*g, x, y, color, mode);
+  // todo: mode
+  image.setPixelAt(x, y, Colour(color));
  #if 0
 	if ((x<0) ||  (x>=LCDWIDTH) || (y<0) || (y>=LCDHEIGHT))
         return;

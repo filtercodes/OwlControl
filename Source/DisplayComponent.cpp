@@ -8,7 +8,7 @@
 
 #include "DisplayComponent.h"
 
-DisplayComponent::DisplayComponent(){   
+DisplayComponent::DisplayComponent(){
 
     addAndMakeVisible (DisplayLabel = new Label (String::empty,
                                                     "Parameter!"));
@@ -19,6 +19,8 @@ DisplayComponent::DisplayComponent(){
     DisplayLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
     
     setSize (64, 48);
+    oled = new MicroOLED(64, 48);
+    // oled->setGraphicsContext(&g);
 }
 
 DisplayComponent::~DisplayComponent(){
@@ -30,14 +32,13 @@ void DisplayComponent::paint (Graphics& g)
     //[UserPrePaint] Add your own custom painting code here..
     //[/UserPrePaint]
 
-    g.fillAll (Colour (0xff000000));
-    g.setColour (Colour (0xff6f6f6f));
+  g.drawImageAt(oled->getImage(), 0, 0);
+    // g.fillAll (Colour (0xff000000));
+    // g.setColour (Colour (0xff6f6f6f));
     
-    g.setPixel	(64, 128);
+    // g.setPixel	(64, 128);
 
-    oled->setGraphicsContext(&g);
-    
-//    oled->
+    // oled->setGraphicsContext(&g);
     
 //    g.setColour (Colours::white);
  //   g.fillPath ();
