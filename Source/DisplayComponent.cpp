@@ -49,7 +49,7 @@ void DisplayComponent::paint (Graphics& g)
 }  
 
 void DisplayComponent::drawPixel(Graphics& g, int x, int y, int colour, int mode){
-    g.setColour(colour);
+    g.setColour(Colour(colour));
     // todo: mode
     drawx4Pixel(g, x, y);
 }

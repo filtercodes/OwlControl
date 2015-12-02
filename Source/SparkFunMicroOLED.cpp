@@ -17,6 +17,8 @@
 #include "SparkFunMicroOLED.h"
 #include "SparkFunMicroOLEDFonts.h"
 #include "math.h"
+#include "DisplayComponent.h"
+
 
 // Change the total fonts included
 #define TOTALFONTS		7
@@ -191,11 +193,11 @@ void MicroOLED::begin() {
 	clear(ALL);						// Erase hardware memory inside the OLED controller to avoid random data in memory.
 }
 
-/** \brief SPI command.
- Setup DC and SS pins, then send command via SPI to SSD1306 controller.
- /*
+//brief SPI command.
+// Setup DC and SS pins, then send command via SPI to SSD1306 controller.
+
 void MicroOLED::command(uint8_t c) {
-    
+/*    
 	if (interface == MODE_SPI)
 	{
 		digitalWrite(dcPin, LOW);
@@ -207,13 +209,14 @@ void MicroOLED::command(uint8_t c) {
 	{
 		i2cWrite(dcPin, I2C_COMMAND, c);
 	}
+ */
 }
 
 //brief SPI data.
- Setup DC and SS pins, then send data via SPI to SSD1306 controller.
+// Setup DC and SS pins, then send data via SPI to SSD1306 controller.
 
 void MicroOLED::data(uint8_t c) {
-    
+/*    
 	if (interface == MODE_SPI)
 	{
 		digitalWrite(dcPin, HIGH);
@@ -224,11 +227,11 @@ void MicroOLED::data(uint8_t c) {
 	else if (interface == MODE_I2C)
 	{
 		i2cWrite(dcPin, I2C_DATA, c);
-	}
+	}   */
 }
 
 //brief Set SSD1306 page address.
- Send page address command and address to the SSD1306 OLED controller.
+// Send page address command and address to the SSD1306 OLED controller.
 
 void MicroOLED::setPageAddress(uint8_t add) {
 	add=0xb0|add;
@@ -237,7 +240,7 @@ void MicroOLED::setPageAddress(uint8_t add) {
 }
 
 //brief Set SSD1306 column address.
- Send column address command and address to the SSD1306 OLED controller.
+// Send column address command and address to the SSD1306 OLED controller.
 
 void MicroOLED::setColumnAddress(uint8_t add) {
 	command((0x10|(add>>4))+0x02);
@@ -288,8 +291,8 @@ void MicroOLED::clear(uint8_t mode, uint8_t c) {
 }
 
 //brief Invert display.
- The WHITE color of the display will turn to BLACK and the BLACK will turn to WHITE.
-   */
+// The WHITE color of the display will turn to BLACK and the BLACK will turn to WHITE.
+  
 void MicroOLED::invert(bool inv) {
 	if (inv)
         command(INVERTDISPLAY);
@@ -360,7 +363,7 @@ void MicroOLED::pixel(uint8_t x, uint8_t y) {
  //Draw color pixel in the screen buffer's x,y position with NORM or XOR draw mode.
  
 void MicroOLED::pixel(uint8_t x, uint8_t y, uint8_t color, uint8_t mode) {
-  cmp->drawx4Pixel(*g, x, y, color, mode);
+  cmp->drawPixel(*g, x, y, color, mode);
  #if 0
 	if ((x<0) ||  (x>=LCDWIDTH) || (y<0) || (y>=LCDHEIGHT))
         return;

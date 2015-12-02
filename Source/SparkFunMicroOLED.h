@@ -17,9 +17,12 @@
 //#ifndef SPARKFUN_MICRO_OLED_H
 //#define SPARKFUN_MICRO_OLED_H
 
-#include <stdio.h>
+//#include <stdio.h>
 #include <stdint.h>
-#include "DisplayComponent.h"
+#include "JuceHeader.h"
+
+//#include "DisplayComponent.h"
+class DisplayComponent;
 
 //#include "application.h"
 
@@ -120,11 +123,11 @@ class MicroOLED //: public Print
 {
     public:
  
-    MicroOLED(DisplayComponent* g):cmp(g){}
+    MicroOLED(DisplayComponent* p):cmp(p){}
     void setGraphicsContext(Graphics* ctx){
         g = ctx;
     }
-	MicroOLED(micro_oled_mode mode = MODE_DEFAULT, uint8_t rst = RST_DEFAULT, uint8_t dc = DC_DEFAULT, uint8_t cs = CS_DEFAULT);
+	MicroOLED(micro_oled_mode mode = MODE_DEFAULT);//, uint8_t rst = RST_DEFAULT, uint8_t dc = DC_DEFAULT, uint8_t cs = CS_DEFAULT);
     
 	void begin(void);
 	virtual size_t write(uint8_t);

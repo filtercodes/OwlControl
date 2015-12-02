@@ -10,8 +10,8 @@
 #define OwlControl_DisplayComponent_h
 
 #include "JuceHeader.h"
-#include "juce_component.h"
-#include "juce_PixelFormats.h"
+//#include "juce_component.h"
+//#include "juce_PixelFormats.h"
 #include "SparkFunMicroOLED.h"
 
 /* #include "juce_Drawable.h"
@@ -45,7 +45,7 @@ public:
     
 private:
     ScopedPointer<Label>DisplayLabel;
-    ScopedPointer<SparkFunMicroOLED> oled;
+    ScopedPointer<MicroOLED> oled;
     
 };
 
